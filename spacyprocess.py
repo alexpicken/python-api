@@ -3,7 +3,7 @@ from spacytextblob.spacytextblob import SpacyTextBlob
 
 import neo4jclass
 
-nlp = spacy.load("en_core_web_lg")
+nlp = spacy.load("en_core_web_md")
 nlp.add_pipe("spacytextblob")
 
 def analyse(conn, session_id, text):
