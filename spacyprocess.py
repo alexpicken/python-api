@@ -18,9 +18,9 @@ def analyse(conn, session_id, text):
     index_length += len(sentence)
     if (summary["assessments"] and (sbj is not None or obj is not None or comp is not None)):
       if (summary["subjectivity"] >= 0.5):
-        #neo4jclass.add_simple_attitude(
-            #conn, sbj, obj, comp, pred, summary["polarity"],
-            #summary["subjectivity"], session_id, str(sentence))
+        neo4jclass.add_simple_attitude(
+            conn, sbj, obj, comp, pred, summary["polarity"],
+            summary["subjectivity"], session_id, str(sentence))
         neo4jclass.add_detailed_attitude(
             conn, sbj, obj, comp, pred,
             summary["polarity"], session_id)
