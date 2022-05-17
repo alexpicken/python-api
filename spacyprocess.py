@@ -21,9 +21,9 @@ def analyse(conn, session_id, text):
         neo4jclass.add_simple_attitude(
             conn, sbj, obj, comp, pred, summary["polarity"],
             summary["subjectivity"], session_id, str(sentence))
-        neo4jclass.add_detailed_attitude(
-            conn, sbj, obj, comp, pred,
-            summary["polarity"], session_id)
+        #neo4jclass.add_detailed_attitude(
+            #conn, sbj, obj, comp, pred,
+            #summary["polarity"], session_id)
 
 def get_subject_phrase(doc, index_length):
   for token in doc:
