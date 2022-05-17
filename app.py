@@ -19,8 +19,9 @@ def webhook():
     query_response = query_result.get("fulfillmentText")
     action = query_result.get("action")
     session_id = req.get("session").split("/")[-1]
-    user_id = req.get("originalDetectIntentRequest").get("payload").get("userId")
-    
+    #user_id = req.get("originalDetectIntentRequest").get("payload").get("userId")
+    user_id = "sven"
+
     if (action == "chatbotgreetings.chatbotgreetings-custom" or action == "input.welcome"):
         neo4jclass.add_session_graphs(user_id, session_id)
     
