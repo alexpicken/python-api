@@ -6,7 +6,7 @@ import neo4jclass
 nlp = spacy.load("en_core_web_md")
 nlp.add_pipe("spacytextblob")
 
-def analyse(conn, session_id, text):
+def analyse(session_id, text):
   doc = nlp(text)
   index_length = 0
   for sentence in list(doc.sents):
@@ -19,10 +19,10 @@ def analyse(conn, session_id, text):
     if (summary["assessments"] and (sbj is not None or obj is not None or comp is not None)):
       if (summary["subjectivity"] >= 0.5):
         neo4jclass.add_simple_attitude(
-            conn, sbj, obj, comp, pred, summary["polarity"],
+            sbj, obj, comp, pred, summary["polarity"],
             summary["subjectivity"], session_id, str(sentence))
         neo4jclass.add_detailed_attitude(
-            conn, sbj, obj, comp, pred,
+            sbj, obj, comp, pred,
             summary["polarity"], session_id)
 
 def get_subject_phrase(doc, index_length):
