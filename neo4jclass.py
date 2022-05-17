@@ -60,6 +60,7 @@ def add_simple_attitude(sbj, obj, comp, pred, polarity, subjectivity, session_id
                     + same_name + "]->(a)) WITH n, s OPTIONAL MATCH (b:Attitude)-[:BELONGS_TO]->(s) WHERE b.polarity " + opposite_sign 
                     + " 0 FOREACH (_ IN CASE WHEN b IS NOT NULL THEN [1] ELSE [] END | MERGE (n)-[:OPPOSITE]->(b))")
     conn.query(add_statement)
+    return add_statement
 
 def add_detailed_attitude(sbj, obj, comp, pred, polarity, session_id):
     if polarity >= 0:
@@ -84,5 +85,6 @@ def add_detailed_attitude(sbj, obj, comp, pred, polarity, session_id):
                     + (" MERGE (c)-[r6:" + same_name + "]->(p) SET (CASE WHEN r6.Weight IS NOT NULL THEN r6 END).Weight = r6.Weight +"
                     + "1 SET (CASE WHEN r6.Weight IS NULL THEN r6 END).Weight = 1" if comp is not None and pred is not None else ""))
     conn.query(add_statement)
+    return add_statement
 
 
