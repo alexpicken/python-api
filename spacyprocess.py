@@ -18,14 +18,12 @@ def analyse(conn, session_id, text):
     index_length += len(sentence)
     if (summary["assessments"] and (sbj is not None or obj is not None or comp is not None)):
       if (summary["subjectivity"] >= 0.5):
-        simple = neo4jclass.add_simple_attitude(
+        neo4jclass.add_simple_attitude(
             conn, sbj, obj, comp, pred, summary["polarity"],
             summary["subjectivity"], session_id, str(sentence))
-        detailed = neo4jclass.add_detailed_attitude(
+        neo4jclass.add_detailed_attitude(
             conn, sbj, obj, comp, pred,
             summary["polarity"], session_id)
-        return simple, detailed
-    return None, None
 
 def get_subject_phrase(doc, index_length):
   for token in doc:
