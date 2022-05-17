@@ -7,6 +7,7 @@ nlp = spacy.load("en_core_web_md")
 nlp.add_pipe("spacytextblob")
 
 def analyse(session_id, text):
+  text = text.replace("'", "")
   doc = nlp(text)
   index_length = 0
   for sentence in list(doc.sents):
