@@ -70,13 +70,19 @@ def add_detailed_attitude(sbj, obj, comp, pred, polarity, session_id):
                     + "'})-[:BELONGS_TO]->(d)" if sbj is not None else "") + (" MERGE (o:Item {name: '" + obj 
                     + "'})-[:BELONGS_TO]->(d)" if obj is not None else "") + (" MERGE (c:Item {name: '" 
                     + comp + "'})-[:BELONGS_TO]->(d)" if comp is not None else "") + (" MERGE (p:Item {name: '" + pred 
-                    + "'})-[:BELONGS_TO]->(d)" if pred is not None else "") + (" MERGE (s)-[:" + same_name 
-                    + "]->(o)" if sbj is not None and obj is not None else "") + (" MERGE (s)-[:" 
-                    + same_name + "]->(c)" if sbj is not None and comp is not None else "") + (" MERGE (s)-[:" + same_name 
-                    + "]->(p)" if sbj is not None and pred is not None else "") + (" MERGE (o)-[:" + same_name 
-                    + "]->(c)" if obj is not None and comp is not None else "") + (" MERGE (o)-[:" + same_name 
-                    + "]->(p)" if obj is not None and pred is not None else "") + (" MERGE (c)-[:" 
-                    + same_name + "]->(p)" if comp is not None and pred is not None else ""))
+                    + "'})-[:BELONGS_TO]->(d)" if pred is not None else "")
+                    + (" MERGE (s)-[r1:" + same_name + "]->(o) SET (CASE WHEN r1.Weight IS NOT NULL THEN r1 END).Weight = r1.Weight +"
+                    + "1 SET (CASE WHEN r1.Weight IS NULL THEN r1 END).Weight = 1" if sbj is not None and obj is not None else "")
+                    + (" MERGE (s)-[r2:" + same_name + "]->(c) SET (CASE WHEN r2.Weight IS NOT NULL THEN r2 END).Weight = r2.Weight +"
+                    + "1 SET (CASE WHEN r2.Weight IS NULL THEN r2 END).Weight = 1" if sbj is not None and comp is not None else "")
+                    + (" MERGE (s)-[r3:" + same_name + "]->(p) SET (CASE WHEN r3.Weight IS NOT NULL THEN r3 END).Weight = r3.Weight +"
+                    + "1 SET (CASE WHEN r3.Weight IS NULL THEN r3 END).Weight = 1" if sbj is not None and pred is not None else "")
+                    + (" MERGE (o)-[r4:" + same_name + "]->(c) SET (CASE WHEN r4.Weight IS NOT NULL THEN r4 END).Weight = r4.Weight +"
+                    + "1 SET (CASE WHEN r4.Weight IS NULL THEN r4 END).Weight = 1" if obj is not None and comp is not None else "")
+                    + (" MERGE (o)-[r5:" + same_name + "]->(p) SET (CASE WHEN r5.Weight IS NOT NULL THEN r5 END).Weight = r5.Weight +"
+                    + "1 SET (CASE WHEN r5.Weight IS NULL THEN r5 END).Weight = 1" if obj is not None and pred is not None else "")
+                    + (" MERGE (c)-[r6:" + same_name + "]->(p) SET (CASE WHEN r6.Weight IS NOT NULL THEN r6 END).Weight = r6.Weight +"
+                    + "1 SET (CASE WHEN r6.Weight IS NULL THEN r6 END).Weight = 1" if comp is not None and pred is not None else ""))
     conn.query(add_statement)
 
 
