@@ -20,6 +20,7 @@ def webhook():
     action = query_result.get("action")
     session_id = req.get("session").split("/")[-1]
     user_id = req.get("originalDetectIntentRequest").get("payload").get("userId")
+    test = query_result.get("outputContexts")
     #if query_result["outputContexts"]:
         #for context in query_result.get("outputContexts"):
             #if(query_result.get)
@@ -36,6 +37,6 @@ def webhook():
     spacyprocess.analyse(session_id, query_text)
 
     return {
-        "fulfillmentText": query_result.get("outputContexts")
+        "fulfillmentText": test
         #"fulfillmentText": query_response
     }
