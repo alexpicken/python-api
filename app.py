@@ -24,11 +24,8 @@ def webhook():
     user_id = req.get("originalDetectIntentRequest").get("payload").get("userId")
     contexts = query_result.get("outputContexts")
 
-    spacyprocess.analyse(session_id, query_text)
-
     if (action == "input.give.name" or action == "input.welcome"):
         neo4jclass.add_session_graphs(user_id, session_id)
-    
     elif (action == "input.unknown"):
         topic_list = []
         for context in contexts:
@@ -43,6 +40,8 @@ def webhook():
         random_int = random.randint(0, len(topic_list))
         if random_int < len(topic_list):
             query_response = "I'd like to talk more about your " + str(topic_list[random_int]) +", what else can you tell me about that?"
+
+    spacyprocess.analyse(session_id, query_text)
 
     return {
         "fulfillmentText": query_response
