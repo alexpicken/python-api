@@ -36,6 +36,6 @@ def webhook():
     spacyprocess.analyse(session_id, query_text)
 
     return {
-        "fulfillmentText": query_result["outputContexts"]
+        "fulfillmentText": query_result.get("outputContexts")
         #"fulfillmentText": query_response
     }
