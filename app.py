@@ -43,7 +43,7 @@ def webhook():
         random_int = random.randint(0, len(topic_list))
         if random_int < len(topic_list):
             query_response = str(len(topic_list)) + " " + str(topic_list) + str(random_int) + str(topic_list[random_int])
-            q#uery_response = "I'd like to talk more about your " + str(topic_list[random_int]) +", what else can you tell me about that?"
+            #query_response = "I'd like to talk more about your " + str(topic_list[random_int]) +", what else can you tell me about that?"
 
     return {
         "fulfillmentText": query_response
