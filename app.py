@@ -26,7 +26,7 @@ def webhook():
 
     spacyprocess.analyse(session_id, query_text)
 
-    if (action == "chatbotgreetings.chatbotgreetings-custom" or action == "input.welcome"):
+    if (action == "input.give.name" or action == "input.welcome"):
         neo4jclass.add_session_graphs(user_id, session_id)
     
     elif (action == "input.unknown"):
