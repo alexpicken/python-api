@@ -20,12 +20,22 @@ def webhook():
     action = query_result.get("action")
     session_id = req.get("session").split("/")[-1]
     user_id = req.get("originalDetectIntentRequest").get("payload").get("userId")
+    #if query_result["outputContexts"]:
+        #for context in query_result.get("outputContexts"):
+            #if(query_result.get)
+            #family_topic = query_result.get("outputContexts").get("")
+            #work_topic =
+            #hobby_topic =
+            #studies_topic = 
 
     if (action == "chatbotgreetings.chatbotgreetings-custom" or action == "input.welcome"):
         neo4jclass.add_session_graphs(user_id, session_id)
-    
+    #elif (action == "input.unknown"):
+        #topic_list = [family_topic, work_topic, hobby_topic, studies_topic]
+
     spacyprocess.analyse(session_id, query_text)
 
     return {
-        "fulfillmentText": query_response
+        "fulfillmentText": query_result["outputContexts"]
+        #"fulfillmentText": query_response
     }
