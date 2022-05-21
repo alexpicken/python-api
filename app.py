@@ -39,8 +39,9 @@ def webhook():
             elif context["name"].split("/")[-1] == "session-hobby":
                 topic_list.append(context["parameters"]["hobby"])
         random_int = random.randint(0, len(topic_list))
-        if topic_list[random_int]:
-            query_response = "I'd like to talk more about your " + topic_list[random_int] +", what else can you tell me about that?"
+        query_response = random_int
+        #if topic_list[random_int]:
+            #query_response = "I'd like to talk more about your " + topic_list[random_int] +", what else can you tell me about that?"
         
 
     spacyprocess.analyse(session_id, query_text)
