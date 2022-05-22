@@ -13,7 +13,7 @@ class Neo4jConnection:
             print("Failed to create the driver:", e)
         
     def close(self):
-        if (self.__driver is not None):
+        if self.__driver is not None:
             self.__driver.close()
         
     def query(self, query, parameters=None, db=None):
@@ -26,7 +26,7 @@ class Neo4jConnection:
         except Exception as e:
             print("Query failed:", e)
         finally: 
-            if (session is not None):
+            if session is not None:
                 session.close()
         return response
 

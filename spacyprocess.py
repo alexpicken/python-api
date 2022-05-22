@@ -17,18 +17,17 @@ def analyse(session_id, text):
     pred = get_predicate(sentence)
     summary = get_polarity_and_subjectivity(sentence)
     index_length += len(sentence)
-    if (summary["assessments"] and (sbj is not None or obj is not None or comp is not None)):
-      if (summary["subjectivity"] >= 0.5):
-        neo4jclass.add_simple_attitude(
-            sbj, obj, comp, pred, summary["polarity"],
-            summary["subjectivity"], session_id, str(sentence))
-        neo4jclass.add_detailed_attitude(
-            sbj, obj, comp, pred,
-            summary["polarity"], session_id)
+    if summary["assessments"] and summary["subjectivity"] >= 0.5 and (sbj is not None or obj is not None or comp is not None):
+      neo4jclass.add_simple_attitude(
+          sbj, obj, comp, pred, summary["polarity"],
+          summary["subjectivity"], session_id, str(sentence))
+      neo4jclass.add_detailed_attitude(
+          sbj, obj, comp, pred,
+          summary["polarity"], session_id)
 
 def get_subject_phrase(doc, index_length):
   for token in doc:
-    if ("subj" in token.dep_):
+    if "subj" in token.dep_:
       subtree = list(token.subtree)
       start = subtree[0].i - index_length
       end = subtree[-1].i + 1 - index_length
@@ -37,7 +36,7 @@ def get_subject_phrase(doc, index_length):
 
 def get_object_phrase(doc, index_length):
   for token in doc:
-    if ("obj" in token.dep_):
+    if "obj" in token.dep_:
       subtree = list(token.subtree)
       start = subtree[0].i - index_length
       end = subtree[-1].i + 1 - index_length
@@ -46,13 +45,13 @@ def get_object_phrase(doc, index_length):
 
 def get_complement(doc, index_length):
   for token in doc:
-    if ("comp" in token.dep_):
+    if "comp" in token.dep_:
       return str(token)
   return None
 
 def get_predicate(doc):
   for token in doc:
-    if (("ROOT" in token.dep_) and ("VB" in token.tag_)):
+    if "ROOT" in token.dep_ and "VB" in token.tag_:
       return str(token)
   return None
 
