@@ -45,7 +45,7 @@ def get_object_phrase(doc, index_length):
 
 def get_complement(doc, index_length):
   for token in doc:
-    if "comp" in token.dep_:
+    if "xcomp" in token.dep_ or "ccomp" in token.dep_:
       return str(token)
   return None
 
