@@ -24,7 +24,7 @@ def webhook():
     user_id = req.get("originalDetectIntentRequest").get("payload").get("userId")
     contexts = query_result.get("outputContexts")
 
-    if action == "input.give.name" or action == "input.welcome":
+    if action == "input.welcome":
         neo4jclass.add_session_graphs(user_id, session_id)
     elif action == "input.unknown":
         topic_list = []
