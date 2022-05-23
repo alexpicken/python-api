@@ -1,4 +1,3 @@
-from webbrowser import Elinks
 from flask import Flask, request
 
 import spacyprocess
@@ -39,7 +38,8 @@ def webhook():
                 topic_list.append(context["parameters"]["hobby"])
         random_int = random.randint(0, len(topic_list))
         if random_int < len(topic_list):
-            query_response = "I'd like to talk more about your " + str(topic_list[random_int]) +", what else can you tell me about that?"
+            query_response = "I'd like to talk more about your " + str(topic_list[random_int]) 
+            +", what else can you tell me about that?"
 
     spacyprocess.analyse(session_id, query_text)
 
